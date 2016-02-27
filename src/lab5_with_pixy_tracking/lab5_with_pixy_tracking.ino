@@ -35,10 +35,10 @@ void setup()
   pinMode(switch_pin, INPUT_PULLUP);
   switch_state=digitalRead(switch_pin);
   pixy.init();
-  analogWrite(left_wheel, 100);
+  analogWrite(left_wheel, 95);
   digitalWrite(left_wheel_b, LOW);
   
-  analogWrite(right_wheel, 125);
+  analogWrite(right_wheel, 100);
   digitalWrite(right_wheel_b, LOW);
   Serial.println("End of setup");
 }
@@ -52,6 +52,10 @@ void loop()
   char buf[32]; 
   
   //delay(500);
+  if (num_pieces_tape > 76) {
+    stop_wheels();
+    
+  }
   switch(state)
   {
     case S:
@@ -61,7 +65,7 @@ void loop()
         switch_state=R;
       break;
     case A:
-      map();
+      
       switch_state=!switch_state;
       while(left_v<max_v)
       {
@@ -79,7 +83,7 @@ void loop()
       //Serial.println(blocks);
       if (blocks) {
         i++;
-        if (i%5==0) {
+        if (i%1==0) {
           //sprintf(buf, "Detected %d:\n", blocks);
           //print_blocks(blocks, buf);
           check_location(blocks); //Assuming there is only one block now.
@@ -135,7 +139,7 @@ void loop()
         right_v-=25;
         delay(200);
       }
-      map();
+      
       switch_state=S;
       break;
   }
@@ -165,12 +169,15 @@ void check_location(uint16_t blocks) {
   if (abs(highest_block - previous_y_block_location) > 50) { // checking if gap is large enough
     num_pieces_tape++;
     //previous_y_block_location = highest_block;
+    Serial.println(" ");
     Serial.print("Number of Pieces of Tape: ");
     Serial.println(num_pieces_tape);
     Serial.print("Distance to left in cm: ");
     mapDist(PING_pin_left);
     Serial.print("Distance to right in cm: ");
     mapDist(PING_pin_right);
+    Serial.print("Z Distance: ");
+    Serial.println(num_pieces_tape*15.24);
     
   }
   previous_y_block_location = highest_block;
@@ -202,60 +209,6 @@ void mapDist(int PING_pin_left){
   Serial.println(dist);
 }
 
-
-void mapDist(int PING_pin_left,int PING_pin_right){
-  // left
-  pinMode(PING_pin_left, OUTPUT);
-  digitalWrite(PING_pin_left, LOW);
-  delayMicroseconds(2);
-  digitalWrite(PING_pin_left, HIGH);
-  delayMicroseconds(5);
-  digitalWrite(PING_pin_left,LOW);
-  pinMode(PING_pin_left, INPUT);
-  while (digitalRead(PING_pin_left) == LOW) {
-  }
-  unsigned long tstart=micros();
-  unsigned long tnow=micros();
-  while (digitalRead(PING_pin_left) == HIGH) {
-    tnow=micros();
-    if (tnow-tstart > 19000) {
-      break;
-    }
-  }
-  unsigned long tend = micros();
-  unsigned long tdiff = tend-tstart;
-  float dist = .034*tdiff/2;
-  Serial.print("Distance to left in cm: ");
-  Serial.println(dist);
-  
-  
-  // right
-  pinMode(PING_pin_right, OUTPUT);
-  digitalWrite(PING_pin_right, LOW);
-  delayMicroseconds(2);
-  digitalWrite(PING_pin_right, HIGH);
-  delayMicroseconds(5);
-  digitalWrite(PING_pin_right,LOW);
-  pinMode(PING_pin_right, INPUT);
-  while (digitalRead(PING_pin_right) == LOW) {
-  }
-  tstart=micros();
-  while (digitalRead(PING_pin_right) == HIGH) {
-    tnow=micros();
-    if (tnow-tstart > 19000) {
-      break;
-    }
-  }
-  tend = micros();
-  tdiff = tend-tstart;
-  dist = .034*tdiff/2;
-  Serial.print("Distance to right in cm: ");
-  Serial.println(dist);
-  Serial.println("----------");
-}
-
-
-
 void print_blocks(uint16_t blocks, char buf[32]) {
     
     //Serial.print(buf);
@@ -269,7 +222,12 @@ void print_blocks(uint16_t blocks, char buf[32]) {
   
 }
 
-
-void map()
-{}
+void stop_wheels() {
+  digitalWrite(left_wheel, LOW);
+  digitalWrite(left_wheel_b, LOW);
+  
+  digitalWrite(right_wheel, LOW);
+  digitalWrite(right_wheel_b, LOW);
+  
+}
 
