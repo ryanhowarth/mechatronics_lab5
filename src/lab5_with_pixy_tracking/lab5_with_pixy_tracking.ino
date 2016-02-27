@@ -1,40 +1,4 @@
-/*
-const int outPin12 = 12;
-const int outPin11 = 11;
-const int outPin10 = 10;
-const int outPin9 = 9;
 
-void setup() {
-  // Configures outPin1 to be an output pin.
-  pinMode(outPin12, OUTPUT);
-  pinMode(outPin11, OUTPUT);
-  pinMode(outPin10, OUTPUT);
-  pinMode(outPin10, OUTPUT);
-
-  digitalWrite(outPin12, HIGH);
-  digitalWrite(outPin11, LOW);
-
-  digitalWrite(outPin10, HIGH);
-  digitalWrite(outPin9, LOW);  
-}
-
-void loop() {
-  // Signal is turned high and low alternately
-  // and immediately.
-//  digitalWrite(outPin12, HIGH);
-//  digitalWrite(outPin11, LOW);
-//  delay(1000);
-//  digitalWrite(outPin5, LOW);
-//  digitalWrite(outPin3, LOW);
-//  delay(1000);
-//  digitalWrite(outPin10, HIGH);
-//  digitalWrite(outPin9, LOW);
-//  delay(1000);
-//  digitalWrite(outPin5, LOW);
-//  digitalWrite(outPin3, LOW);
-//  delay(1000);
-}
-*/
 #include <SPI.h>  
 #include <Pixy.h>
 
@@ -45,6 +9,12 @@ const int right_wheel = 6;//5
 const int right_wheel_b = 5;
 const int switch_pin=3;
 const int max_v=100;
+const int left_wheel_v = 100;
+const int right_wheel_v = 125;
+
+int previous_y_block_location = 500; //large number so it will count first frame;
+int num_pieces_tape = 0;
+
 int left_v=0;
 int right_v=0;
 unsigned long time;
@@ -53,118 +23,103 @@ bool switch_state;
 bool count_time=false;
 
 enum States {S, A, R, D};
-States state=S;
+States state=R;
 
 void setup()
 {
-  Serial.begin(38400);
+  Serial.begin(9600);
   pinMode(left_wheel, OUTPUT);   // sets the pin as output
   pinMode(right_wheel, OUTPUT);
-  pinMode(left_wheel_b, OUTPUT);   // sets the pin as output
-  pinMode(right_wheel_b, OUTPUT);
   pinMode(switch_pin, INPUT_PULLUP);
   switch_state=digitalRead(switch_pin);
   pixy.init();
-  digitalWrite(left_wheel, LOW);
+  analogWrite(left_wheel, 100);
   digitalWrite(left_wheel_b, LOW);
-  digitalWrite(right_wheel, LOW);
+  
+  analogWrite(right_wheel, 125);
   digitalWrite(right_wheel_b, LOW);
-  Serial.println("start");
+  Serial.println("End of setup");
 }
 
 void loop()
 {
   static int i = 0;
   int j;
-  uint16_t blocks;
+  //uint16_t blocks;
+  int blocks;
   char buf[32]; 
   
+  //delay(500);
   switch(state)
   {
     case S:
       if(switch_state==digitalRead(switch_pin))
-      {
         delay(1000);
-        Serial.println("state S");
-      }
       else
-      {
-        state=A;
-        Serial.println("state switch");
-      }
+        switch_state=R;
       break;
     case A:
       map();
-      Serial.println("state A");
       switch_state=!switch_state;
       while(left_v<max_v)
       {
-        Serial.println("Accel");
         analogWrite(left_wheel, left_v);  
         analogWrite(right_wheel, right_v);
         left_v+=25;
         right_v+=25;
         delay(200);
       }
-      state=R;
+      switch_state=R;
       break;
     case R:
       blocks = pixy.getBlocks();
-      i++;
-
-      if (i%10==0)
-      {
-        if(blocks==0)
-        {
-          if(count_time==false)
-          {
-            time=millis();  
-            count_time=true;
-          }
-          else
-          {
-            if((millis()-time)>time_thresh)
-            {
-              state=D;
-              count_time=false;
-            }
-          }
-        }
-        else
-        {
-          if(count_time)
-            count_time=false;
-          for (j=0; j<blocks; j++)
-          {
-            if(pixy.blocks[j].y<150)
-            {//adjust direction
-                if(pixy.blocks[j].x<150)
-                {//turn right
-                  left_v=50+max_v;
-                  right_v=max_v;
-                  analogWrite(left_wheel, left_v);  
-                  analogWrite(right_wheel, right_v);
-                  time=millis();
-                  while((millis()-time)<10);
-                  left_v=max_v;
-                }
-                else if(pixy.blocks[j].x>170) 
-                {//turn left
-                  left_v=max_v;
-                  right_v=50+max_v;
-                  analogWrite(left_wheel, left_v);  
-                  analogWrite(right_wheel, right_v);
-                  while((millis()-time)<10);
-                  right_v=max_v;
-                }
-            }
-                
-          }
-        }
+      //Serial.print("Blocks: ");
+      //Serial.println(blocks);
+      if (blocks) {
+        i++;
+        if (i%10==0) {
+          sprintf(buf, "Detected %d:\n", blocks);
+          print_blocks(blocks, buf);
+          check_location(pixy.blocks[0].y); //Assuming there is only one block now.
           
+        }
+        
+      
       }
-  
-      break;
+      /*
+      if (i%50==0)
+      {
+        
+        if(count_time)
+          count_time=false;
+        for (j=0; j<blocks; j++)
+        {
+          if(pixy.blocks[j].y<70)
+          {//adjust direction
+              if(pixy.blocks[j].x<150)
+              {//turn right
+                left_v=50+max_v;
+                right_v=max_v;
+                analogWrite(left_wheel, left_v);  
+                analogWrite(right_wheel, right_v);
+                time=millis();
+                while((millis()-time)<10);
+                left_v=max_v;
+              }
+              else if(pixy.blocks[j].x>170) 
+              {//turn left
+                left_v=max_v;
+                right_v=50+max_v;
+                analogWrite(left_wheel, left_v);  
+                analogWrite(right_wheel, right_v);
+                while((millis()-time)<10);
+                right_v=max_v;
+              }
+          }          
+        }  
+      }
+      */
+      
     case D:
       if(left_v>right_v)
         left_v=right_v;
@@ -179,7 +134,7 @@ void loop()
         delay(200);
       }
       map();
-      state=S;
+      switch_state=S;
       break;
   }
   
@@ -197,6 +152,45 @@ void loop()
 */
 }
 
+void check_location(uint16_t blocks) {
+  Serial.println("-------------");
+  Serial.println("Check_Location");
+  Serial.print("Blocks: ");
+  Serial.println(blocks);
+  int lowest_block = 500;
+  for (int j=0; j<blocks; j++) {
+    if (pixy.blocks[j].y < lowest_block) {
+      lowest_block = pixy.blocks[j].y; 
+      
+    }
+    Serial.print("pixy.blocks[j].y: ");
+    Serial.println(pixy.blocks[j].y);
+  }
+  Serial.print("Lowest Block ");
+  Serial.println(lowest_block);
+  
+  if (lowest_block - previous_y_block_location > 50) { // checking if gap is large enough
+    num_pieces_tape++;
+    previous_y_block_location = lowest_block;
+    Serial.print("Number of Pieces of Tape: ");
+    Serial.println(num_pieces_tape);
+  }
+  Serial.println("-------------");
+}
+
+void print_blocks(uint16_t blocks, char buf[32]) {
+    
+    Serial.print(buf);
+    for (int j=0; j<blocks; j++)
+    {
+      sprintf(buf, "  block %d: ", j);
+      Serial.print(buf); 
+      pixy.blocks[j].print();
+    }
+  
+}
+
+
 void map()
-{Serial.println("map ");}
+{}
 

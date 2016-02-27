@@ -10,10 +10,10 @@ void setup() {
   pinMode(outPin6, OUTPUT);
   pinMode(outPin5, OUTPUT);
 
-  digitalWrite(outPin11, LOW);
-  analogWrite(outPin10, 100);
+  analogWrite(outPin11, 100);
+  digitalWrite(outPin10, LOW);
 
-  analogWrite(outPin5, 100);
+  analogWrite(outPin6, 125);
   digitalWrite(outPin5, LOW);  
 }
 
