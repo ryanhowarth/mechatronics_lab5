@@ -60,13 +60,16 @@ void setup()
   Serial.begin(38400);
   pinMode(left_wheel, OUTPUT);   // sets the pin as output
   pinMode(right_wheel, OUTPUT);
+  pinMode(left_wheel_b, OUTPUT);   // sets the pin as output
+  pinMode(right_wheel_b, OUTPUT);
   pinMode(switch_pin, INPUT_PULLUP);
   switch_state=digitalRead(switch_pin);
   pixy.init();
-  analogWrite(left_wheel, 0);
-  analogWrite(left_wheel_b, 0);
-  analogWrite(right_wheel, 0);
-  analogWrite(right_wheel_b, 0);
+  digitalWrite(left_wheel, LOW);
+  digitalWrite(left_wheel_b, LOW);
+  digitalWrite(right_wheel, LOW);
+  digitalWrite(right_wheel_b, LOW);
+  Serial.println("start");
 }
 
 void loop()
@@ -78,26 +81,34 @@ void loop()
   
   switch(state)
   {
-    S:
+    case S:
       if(switch_state==digitalRead(switch_pin))
+      {
         delay(1000);
+        Serial.println("state S");
+      }
       else
-        switch_state=A;
+      {
+        state=A;
+        Serial.println("state switch");
+      }
       break;
-    A:
+    case A:
       map();
+      Serial.println("state A");
       switch_state=!switch_state;
       while(left_v<max_v)
       {
+        Serial.println("Accel");
         analogWrite(left_wheel, left_v);  
         analogWrite(right_wheel, right_v);
         left_v+=25;
         right_v+=25;
         delay(200);
       }
-      switch_state=R;
+      state=R;
       break;
-    R:
+    case R:
       blocks = pixy.getBlocks();
       i++;
 
@@ -114,7 +125,7 @@ void loop()
           {
             if((millis()-time)>time_thresh)
             {
-              switch_state=D;
+              state=D;
               count_time=false;
             }
           }
@@ -125,7 +136,7 @@ void loop()
             count_time=false;
           for (j=0; j<blocks; j++)
           {
-            if(pixy.blocks[j].y<70)
+            if(pixy.blocks[j].y<150)
             {//adjust direction
                 if(pixy.blocks[j].x<150)
                 {//turn right
@@ -154,7 +165,7 @@ void loop()
       }
   
       break;
-    D:
+    case D:
       if(left_v>right_v)
         left_v=right_v;
       else
@@ -168,7 +179,7 @@ void loop()
         delay(200);
       }
       map();
-      switch_state=S;
+      state=S;
       break;
   }
   
@@ -187,5 +198,5 @@ void loop()
 }
 
 void map()
-{}
+{Serial.println("map ");}
 
