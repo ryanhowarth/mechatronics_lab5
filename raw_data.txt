@@ -1,0 +1,778 @@
+Example run from 2/27/16 at 4:48
+
+------------ START DATA ---------------
+
+
+End of setup
+
+ 
+
+Number of Pieces of Tape: 1
+
+Distance to left in cm: 144.09
+
+Distance to right in cm: 40.60
+
+Z Distance: 15.24
+
+ 
+
+Number of Pieces of Tape: 2
+
+Distance to left in cm: 144.36
+
+Distance to right in cm: 42.50
+
+Z Distance: 30.48
+
+ 
+
+Number of Pieces of Tape: 3
+
+Distance to left in cm: 43.18
+
+Distance to right in cm: 43.79
+
+Z Distance: 45.72
+
+ 
+
+Number of Pieces of Tape: 4
+
+Distance to left in cm: 41.82
+
+Distance to right in cm: 49.03
+
+Z Distance: 60.96
+
+ 
+
+Number of Pieces of Tape: 5
+
+Distance to left in cm: 41.21
+
+Distance to right in cm: 171.90
+
+Z Distance: 76.20
+
+ 
+
+Number of Pieces of Tape: 6
+
+Distance to left in cm: 41.34
+
+Distance to right in cm: 90.71
+
+Z Distance: 91.44
+
+ 
+
+Number of Pieces of Tape: 7
+
+Distance to left in cm: 147.56
+
+Distance to right in cm: 58.21
+
+Z Distance: 106.68
+
+ 
+
+Number of Pieces of Tape: 8
+
+Distance to left in cm: 266.83
+
+Distance to right in cm: 54.60
+
+Z Distance: 121.92
+
+ 
+
+Number of Pieces of Tape: 9
+
+Distance to left in cm: 256.09
+
+Distance to right in cm: 56.98
+
+Z Distance: 137.16
+
+ 
+
+Number of Pieces of Tape: 10
+
+Distance to left in cm: 253.37
+
+Distance to right in cm: 61.54
+
+Z Distance: 152.40
+
+ 
+
+Number of Pieces of Tape: 11
+
+Distance to left in cm: 309.67
+
+Distance to right in cm: 127.64
+
+Z Distance: 167.64
+
+ 
+
+Number of Pieces of Tape: 12
+
+Distance to left in cm: 266.08
+
+Distance to right in cm: 101.46
+
+Z Distance: 182.88
+
+ 
+
+Number of Pieces of Tape: 13
+
+Distance to left in cm: 250.58
+
+Distance to right in cm: 106.76
+
+Z Distance: 198.12
+
+ 
+
+Number of Pieces of Tape: 14
+
+Distance to left in cm: 248.81
+
+Distance to right in cm: 104.38
+
+Z Distance: 213.36
+
+ 
+
+Number of Pieces of Tape: 15
+
+Distance to left in cm: 297.16
+
+Distance to right in cm: 103.97
+
+Z Distance: 228.60
+
+ 
+
+Number of Pieces of Tape: 16
+
+Distance to left in cm: 310.69
+
+Distance to right in cm: 104.24
+
+Z Distance: 243.84
+
+ 
+
+Number of Pieces of Tape: 17
+
+Distance to left in cm: 274.99
+
+Distance to right in cm: 106.56
+
+Z Distance: 259.08
+
+ 
+
+Number of Pieces of Tape: 18
+
+Distance to left in cm: 275.67
+
+Distance to right in cm: 107.78
+
+Z Distance: 274.32
+
+ 
+
+Number of Pieces of Tape: 19
+
+Distance to left in cm: 276.42
+
+Distance to right in cm: 144.43
+
+Z Distance: 289.56
+
+ 
+
+Number of Pieces of Tape: 20
+
+Distance to left in cm: 275.54
+
+Distance to right in cm: 145.11
+
+Z Distance: 304.80
+
+ 
+
+Number of Pieces of Tape: 21
+
+Distance to left in cm: 275.67
+
+Distance to right in cm: 145.72
+
+Z Distance: 320.04
+
+ 
+
+Number of Pieces of Tape: 22
+
+Distance to left in cm: 303.14
+
+Distance to right in cm: 145.79
+
+Z Distance: 335.28
+
+ 
+
+Number of Pieces of Tape: 23
+
+Distance to left in cm: 304.64
+
+Distance to right in cm: 64.67
+
+Z Distance: 350.52
+
+ 
+
+Number of Pieces of Tape: 24
+
+Distance to left in cm: 310.69
+
+Distance to right in cm: 90.78
+
+Z Distance: 365.76
+
+ 
+
+Number of Pieces of Tape: 25
+
+Distance to left in cm: 310.69
+
+Distance to right in cm: 47.40
+
+Z Distance: 381.00
+
+ 
+
+Number of Pieces of Tape: 26
+
+Distance to left in cm: 310.69
+
+Distance to right in cm: 76.50
+
+Z Distance: 396.24
+
+ 
+
+Number of Pieces of Tape: 27
+
+Distance to left in cm: 310.69
+
+Distance to right in cm: 75.55
+
+Z Distance: 411.48
+
+ 
+
+Number of Pieces of Tape: 28
+
+Distance to left in cm: 310.69
+
+Distance to right in cm: 109.48
+
+Z Distance: 426.72
+
+ 
+
+Number of Pieces of Tape: 29
+
+Distance to left in cm: 114.58
+
+Distance to right in cm: 83.30
+
+Z Distance: 441.96
+
+ 
+
+Number of Pieces of Tape: 30
+
+Distance to left in cm: 75.41
+
+Distance to right in cm: 84.73
+
+Z Distance: 457.20
+
+ 
+
+Number of Pieces of Tape: 31
+
+Distance to left in cm: 63.99
+
+Distance to right in cm: 70.11
+
+Z Distance: 472.44
+
+ 
+
+Number of Pieces of Tape: 32
+
+Distance to left in cm: 36.38
+
+Distance to right in cm: 66.44
+
+Z Distance: 487.68
+
+ 
+
+Number of Pieces of Tape: 33
+
+Distance to left in cm: 32.30
+
+Distance to right in cm: 96.70
+
+Z Distance: 502.92
+
+ 
+
+Number of Pieces of Tape: 34
+
+Distance to left in cm: 31.62
+
+Distance to right in cm: 99.55
+
+Z Distance: 518.16
+
+ 
+
+Number of Pieces of Tape: 35
+
+Distance to left in cm: 31.28
+
+Distance to right in cm: 99.96
+
+Z Distance: 533.40
+
+ 
+
+Number of Pieces of Tape: 36
+
+Distance to left in cm: 32.91
+
+Distance to right in cm: 120.22
+
+Z Distance: 548.64
+
+ 
+
+Number of Pieces of Tape: 37
+
+Distance to left in cm: 47.06
+
+Distance to right in cm: 119.75
+
+Z Distance: 563.88
+
+ 
+
+Number of Pieces of Tape: 38
+
+Distance to left in cm: 44.13
+
+Distance to right in cm: 117.10
+
+Z Distance: 579.12
+
+ 
+
+Number of Pieces of Tape: 39
+
+Distance to left in cm: 38.49
+
+Distance to right in cm: 116.42
+
+Z Distance: 594.36
+
+ 
+
+Number of Pieces of Tape: 40
+
+Distance to left in cm: 39.37
+
+Distance to right in cm: 117.03
+
+Z Distance: 609.60
+
+ 
+
+Number of Pieces of Tape: 41
+
+Distance to left in cm: 43.38
+
+Distance to right in cm: 115.60
+
+Z Distance: 624.84
+
+ 
+
+Number of Pieces of Tape: 42
+
+Distance to left in cm: 48.69
+
+Distance to right in cm: 118.73
+
+Z Distance: 640.08
+
+ 
+
+Number of Pieces of Tape: 43
+
+Distance to left in cm: 56.24
+
+Distance to right in cm: 129.88
+
+Z Distance: 655.32
+
+ 
+
+Number of Pieces of Tape: 44
+
+Distance to left in cm: 272.27
+
+Distance to right in cm: 131.58
+
+Z Distance: 670.56
+
+ 
+
+Number of Pieces of Tape: 45
+
+Distance to left in cm: 274.86
+
+Distance to right in cm: 158.17
+
+Z Distance: 685.80
+
+ 
+
+Number of Pieces of Tape: 46
+
+Distance to left in cm: 274.38
+
+Distance to right in cm: 130.22
+
+Z Distance: 701.04
+
+ 
+
+Number of Pieces of Tape: 47
+
+Distance to left in cm: 274.86
+
+Distance to right in cm: 90.24
+
+Z Distance: 716.28
+
+ 
+
+Number of Pieces of Tape: 48
+
+Distance to left in cm: 275.54
+
+Distance to right in cm: 87.65
+
+Z Distance: 731.52
+
+ 
+
+Number of Pieces of Tape: 49
+
+Distance to left in cm: 157.01
+
+Distance to right in cm: 91.12
+
+Z Distance: 746.76
+
+ 
+
+Number of Pieces of Tape: 50
+
+Distance to left in cm: 149.33
+
+Distance to right in cm: 115.46
+
+Z Distance: 762.00
+
+ 
+
+Number of Pieces of Tape: 51
+
+Distance to left in cm: 150.08
+
+Distance to right in cm: 116.48
+
+Z Distance: 777.24
+
+ 
+
+Number of Pieces of Tape: 52
+
+Distance to left in cm: 144.70
+
+Distance to right in cm: 118.46
+
+Z Distance: 792.48
+
+ 
+
+Number of Pieces of Tape: 53
+
+Distance to left in cm: 139.54
+
+Distance to right in cm: 115.33
+
+Z Distance: 807.72
+
+ 
+
+Number of Pieces of Tape: 54
+
+Distance to left in cm: 158.17
+
+Distance to right in cm: 116.35
+
+Z Distance: 822.96
+
+ 
+
+Number of Pieces of Tape: 55
+
+Distance to left in cm: 207.94
+
+Distance to right in cm: 120.63
+
+Z Distance: 838.20
+
+ 
+
+Number of Pieces of Tape: 56
+
+Distance to left in cm: 204.27
+
+Distance to right in cm: 149.46
+
+Z Distance: 853.44
+
+ 
+
+Number of Pieces of Tape: 57
+
+Distance to left in cm: 202.64
+
+Distance to right in cm: 147.70
+
+Z Distance: 868.68
+
+ 
+
+Number of Pieces of Tape: 58
+
+Distance to left in cm: 184.96
+
+Distance to right in cm: 93.77
+
+Z Distance: 883.92
+
+ 
+
+Number of Pieces of Tape: 59
+
+Distance to left in cm: 182.10
+
+Distance to right in cm: 93.77
+
+Z Distance: 899.16
+
+ 
+
+Number of Pieces of Tape: 60
+
+Distance to left in cm: 177.48
+
+Distance to right in cm: 97.24
+
+Z Distance: 914.40
+
+ 
+
+Number of Pieces of Tape: 61
+
+Distance to left in cm: 175.30
+
+Distance to right in cm: 100.37
+
+Z Distance: 929.64
+
+ 
+
+Number of Pieces of Tape: 62
+
+Distance to left in cm: 146.20
+
+Distance to right in cm: 121.24
+
+Z Distance: 944.88
+
+ 
+
+Number of Pieces of Tape: 63
+
+Distance to left in cm: 43.52
+
+Distance to right in cm: 129.47
+
+Z Distance: 960.12
+
+ 
+
+Number of Pieces of Tape: 64
+
+Distance to left in cm: 43.66
+
+Distance to right in cm: 140.42
+
+Z Distance: 975.36
+
+ 
+
+Number of Pieces of Tape: 65
+
+Distance to left in cm: 43.66
+
+Distance to right in cm: 141.30
+
+Z Distance: 990.60
+
+ 
+
+Number of Pieces of Tape: 66
+
+Distance to left in cm: 45.22
+
+Distance to right in cm: 136.20
+
+Z Distance: 1005.84
+
+ 
+
+Number of Pieces of Tape: 67
+
+Distance to left in cm: 216.17
+
+Distance to right in cm: 112.06
+
+Z Distance: 1021.08
+
+ 
+
+Number of Pieces of Tape: 68
+
+Distance to left in cm: 215.49
+
+Distance to right in cm: 93.91
+
+Z Distance: 1036.32
+
+ 
+
+Number of Pieces of Tape: 69
+
+Distance to left in cm: 214.54
+
+Distance to right in cm: 86.97
+
+Z Distance: 1051.56
+
+ 
+
+Number of Pieces of Tape: 70
+
+Distance to left in cm: 214.54
+
+Distance to right in cm: 46.31
+
+Z Distance: 1066.80
+
+ 
+
+Number of Pieces of Tape: 71
+
+Distance to left in cm: 123.15
+
+Distance to right in cm: 73.24
+
+Z Distance: 1082.04
+
+ 
+
+Number of Pieces of Tape: 72
+
+Distance to left in cm: 119.88
+
+Distance to right in cm: 23.66
+
+Z Distance: 1097.28
+
+ 
+
+Number of Pieces of Tape: 73
+
+Distance to left in cm: 119.61
+
+Distance to right in cm: 27.47
+
+Z Distance: 1112.52
+
+ 
+
+Number of Pieces of Tape: 74
+
+Distance to left in cm: 83.30
+
+Distance to right in cm: 24.14
+
+Z Distance: 1127.76
+
+ 
+
+Number of Pieces of Tape: 75
+
+Distance to left in cm: 117.30
+
+Distance to right in cm: 59.02
+
+Z Distance: 1143.00
+
+ 
+
+Number of Pieces of Tape: 76
+
+Distance to left in cm: 277.03
+
+Distance to right in cm: 52.43
+
+Z Distance: 1158.24
+
+ 
+
+Number of Pieces of Tape: 77
+
+Distance to left in cm: 183.12
+
+Distance to right in cm: 74.19
+
+Z Distance: 1173.48
+
+

@@ -12,7 +12,7 @@ const int max_v=100;
 const int left_wheel_v = 100;
 const int right_wheel_v = 125;
 const int PING_pin_left=7;
-const int  PING_pin_right=2;
+const int  PING_pin_right=4;
 
 int previous_y_block_location = 500; //large number so it will count first frame;
 int num_pieces_tape = 0;
@@ -167,9 +167,39 @@ void check_location(uint16_t blocks) {
     //previous_y_block_location = highest_block;
     Serial.print("Number of Pieces of Tape: ");
     Serial.println(num_pieces_tape);
-    mapDist(PING_pin_left,PING_pin_right);
+    Serial.print("Distance to left in cm: ");
+    mapDist(PING_pin_left);
+    Serial.print("Distance to right in cm: ");
+    mapDist(PING_pin_right);
+    
   }
   previous_y_block_location = highest_block;
+}
+
+void mapDist(int PING_pin_left){
+  // left
+  pinMode(PING_pin_left, OUTPUT);
+  digitalWrite(PING_pin_left, LOW);
+  delayMicroseconds(2);
+  digitalWrite(PING_pin_left, HIGH);
+  delayMicroseconds(5);
+  digitalWrite(PING_pin_left,LOW);
+  pinMode(PING_pin_left, INPUT);
+  while (digitalRead(PING_pin_left) == LOW) {
+  }
+  unsigned long tstart=micros();
+  unsigned long tnow=micros();
+  while (digitalRead(PING_pin_left) == HIGH) {
+    tnow=micros();
+    if (tnow-tstart > 19000) {
+      break;
+    }
+  }
+  unsigned long tend = micros();
+  unsigned long tdiff = tend-tstart;
+  float dist = .034*tdiff/2;
+  //Serial.print("Distance to left in cm: ");
+  Serial.println(dist);
 }
 
 
