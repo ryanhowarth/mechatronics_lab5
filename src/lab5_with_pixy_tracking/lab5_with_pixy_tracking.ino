@@ -11,6 +11,8 @@ const int switch_pin=3;
 const int max_v=100;
 const int left_wheel_v = 100;
 const int right_wheel_v = 125;
+const int PING_pin_left=7;
+const int  PING_pin_right=2;
 
 int previous_y_block_location = 500; //large number so it will count first frame;
 int num_pieces_tape = 0;
@@ -77,10 +79,10 @@ void loop()
       //Serial.println(blocks);
       if (blocks) {
         i++;
-        if (i%10==0) {
-          sprintf(buf, "Detected %d:\n", blocks);
-          print_blocks(blocks, buf);
-          check_location(pixy.blocks[0].y); //Assuming there is only one block now.
+        if (i%5==0) {
+          //sprintf(buf, "Detected %d:\n", blocks);
+          //print_blocks(blocks, buf);
+          check_location(blocks); //Assuming there is only one block now.
           
         }
         
@@ -153,38 +155,85 @@ void loop()
 }
 
 void check_location(uint16_t blocks) {
-  Serial.println("-------------");
-  Serial.println("Check_Location");
-  Serial.print("Blocks: ");
-  Serial.println(blocks);
-  int lowest_block = 500;
+  int highest_block = 0;
   for (int j=0; j<blocks; j++) {
-    if (pixy.blocks[j].y < lowest_block) {
-      lowest_block = pixy.blocks[j].y; 
-      
+    if (pixy.blocks[j].y > highest_block) {
+      highest_block = pixy.blocks[j].y;      
     }
-    Serial.print("pixy.blocks[j].y: ");
-    Serial.println(pixy.blocks[j].y);
   }
-  Serial.print("Lowest Block ");
-  Serial.println(lowest_block);
   
-  if (lowest_block - previous_y_block_location > 50) { // checking if gap is large enough
+  if (abs(highest_block - previous_y_block_location) > 50) { // checking if gap is large enough
     num_pieces_tape++;
-    previous_y_block_location = lowest_block;
+    //previous_y_block_location = highest_block;
     Serial.print("Number of Pieces of Tape: ");
     Serial.println(num_pieces_tape);
+    mapDist(PING_pin_left,PING_pin_right);
   }
-  Serial.println("-------------");
+  previous_y_block_location = highest_block;
 }
+
+
+void mapDist(int PING_pin_left,int PING_pin_right){
+  // left
+  pinMode(PING_pin_left, OUTPUT);
+  digitalWrite(PING_pin_left, LOW);
+  delayMicroseconds(2);
+  digitalWrite(PING_pin_left, HIGH);
+  delayMicroseconds(5);
+  digitalWrite(PING_pin_left,LOW);
+  pinMode(PING_pin_left, INPUT);
+  while (digitalRead(PING_pin_left) == LOW) {
+  }
+  unsigned long tstart=micros();
+  unsigned long tnow=micros();
+  while (digitalRead(PING_pin_left) == HIGH) {
+    tnow=micros();
+    if (tnow-tstart > 19000) {
+      break;
+    }
+  }
+  unsigned long tend = micros();
+  unsigned long tdiff = tend-tstart;
+  float dist = .034*tdiff/2;
+  Serial.print("Distance to left in cm: ");
+  Serial.println(dist);
+  
+  
+  // right
+  pinMode(PING_pin_right, OUTPUT);
+  digitalWrite(PING_pin_right, LOW);
+  delayMicroseconds(2);
+  digitalWrite(PING_pin_right, HIGH);
+  delayMicroseconds(5);
+  digitalWrite(PING_pin_right,LOW);
+  pinMode(PING_pin_right, INPUT);
+  while (digitalRead(PING_pin_right) == LOW) {
+  }
+  tstart=micros();
+  while (digitalRead(PING_pin_right) == HIGH) {
+    tnow=micros();
+    if (tnow-tstart > 19000) {
+      break;
+    }
+  }
+  tend = micros();
+  tdiff = tend-tstart;
+  dist = .034*tdiff/2;
+  Serial.print("Distance to right in cm: ");
+  Serial.println(dist);
+  Serial.println("----------");
+}
+
+
 
 void print_blocks(uint16_t blocks, char buf[32]) {
     
-    Serial.print(buf);
+    //Serial.print(buf);
+
     for (int j=0; j<blocks; j++)
     {
       sprintf(buf, "  block %d: ", j);
-      Serial.print(buf); 
+      //Serial.print(buf); 
       pixy.blocks[j].print();
     }
   
