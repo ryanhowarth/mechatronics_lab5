@@ -52,7 +52,7 @@ void loop()
   char buf[32]; 
   
   //delay(500);
-  if (num_pieces_tape > 76) {
+  if (num_pieces_tape > 5) {
     stop_wheels();
     
   }
@@ -223,9 +223,10 @@ void print_blocks(uint16_t blocks, char buf[32]) {
 }
 
 void stop_wheels() {
-  digitalWrite(left_wheel, LOW);
-  digitalWrite(left_wheel_b, LOW);
-  
+  delay(100);
+  digitalWrite(left_wheel, HIGH);
+  digitalWrite(left_wheel_b, HIGH);
+  delay(100);
   digitalWrite(right_wheel, LOW);
   digitalWrite(right_wheel_b, LOW);
   
