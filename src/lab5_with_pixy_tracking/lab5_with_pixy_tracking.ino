@@ -2,17 +2,22 @@
 #include <SPI.h>  
 #include <Pixy.h>
 
+
 Pixy pixy;
+//Defining pins
 const int left_wheel = 11;//10
 const int left_wheel_b = 10;
 const int right_wheel = 6;//5
 const int right_wheel_b = 5;
 const int switch_pin=3;
+const int PING_pin_left=7;
+const int  PING_pin_right=4;
+
+//Other constants
 const int max_v=100;
 const int left_wheel_v = 100;
 const int right_wheel_v = 125;
-const int PING_pin_left=7;
-const int  PING_pin_right=4;
+
 
 int previous_y_block_location = 500; //large number so it will count first frame;
 int num_pieces_tape = 0;
@@ -24,9 +29,12 @@ const unsigned long time_thresh=100;
 bool switch_state;
 bool count_time=false;
 
-enum States {S, A, R, D};
+enum States {S, R};
 States state=R;
 
+/*
+    Initializes pins and serial port. 
+*/
 void setup()
 {
   Serial.begin(9600);
@@ -43,6 +51,10 @@ void setup()
   Serial.println("End of setup");
 }
 
+/*
+    Two States Stopped and running.
+    The running state just gets block from pixy and sends them to the get location function.
+*/
 void loop()
 {
   static int i = 0;
@@ -64,19 +76,6 @@ void loop()
       else
         switch_state=R;
       break;
-    case A:
-      
-      switch_state=!switch_state;
-      while(left_v<max_v)
-      {
-        analogWrite(left_wheel, left_v);  
-        analogWrite(right_wheel, right_v);
-        left_v+=25;
-        right_v+=25;
-        delay(200);
-      }
-      switch_state=R;
-      break;
     case R:
       blocks = pixy.getBlocks();
       //Serial.print("Blocks: ");
@@ -88,76 +87,15 @@ void loop()
           //print_blocks(blocks, buf);
           check_location(blocks); //Assuming there is only one block now.
           
-        }
-        
-      
+        } 
       }
-      /*
-      if (i%50==0)
-      {
-        
-        if(count_time)
-          count_time=false;
-        for (j=0; j<blocks; j++)
-        {
-          if(pixy.blocks[j].y<70)
-          {//adjust direction
-              if(pixy.blocks[j].x<150)
-              {//turn right
-                left_v=50+max_v;
-                right_v=max_v;
-                analogWrite(left_wheel, left_v);  
-                analogWrite(right_wheel, right_v);
-                time=millis();
-                while((millis()-time)<10);
-                left_v=max_v;
-              }
-              else if(pixy.blocks[j].x>170) 
-              {//turn left
-                left_v=max_v;
-                right_v=50+max_v;
-                analogWrite(left_wheel, left_v);  
-                analogWrite(right_wheel, right_v);
-                while((millis()-time)<10);
-                right_v=max_v;
-              }
-          }          
-        }  
-      }
-      */
-      
-    case D:
-      if(left_v>right_v)
-        left_v=right_v;
-      else
-        right_v=left_v;
-      while(left_v>0)
-      {
-        analogWrite(left_wheel, left_v);  
-        analogWrite(right_wheel, right_v);
-        left_v-=25;
-        right_v-=25;
-        delay(200);
-      }
-      
-      switch_state=S;
-      break;
   }
-  
-  
-  
-/*  
-  while(brightness)
-  {
-  analogWrite(outPin3, brightness);  // analogRead values go from 0 to 1023, analogWrite values from 0 to 255
-  delay(50);
-  brightness-=5;
-  }
-  delay(1000);
-  brightness=255;
-*/
 }
 
+/*
+    Checking location of robot using pixy image data.
+    Uses red tape on floor to localize. 
+*/
 void check_location(uint16_t blocks) {
   int highest_block = 0;
   for (int j=0; j<blocks; j++) {
@@ -168,7 +106,6 @@ void check_location(uint16_t blocks) {
   
   if (abs(highest_block - previous_y_block_location) > 50) { // checking if gap is large enough
     num_pieces_tape++;
-    //previous_y_block_location = highest_block;
     Serial.println(" ");
     Serial.print("Number of Pieces of Tape: ");
     Serial.println(num_pieces_tape);
@@ -183,6 +120,9 @@ void check_location(uint16_t blocks) {
   previous_y_block_location = highest_block;
 }
 
+/*
+    Gets a reading from the ping sensor. 
+*/
 void mapDist(int PING_pin_left){
   // left
   pinMode(PING_pin_left, OUTPUT);
@@ -209,19 +149,22 @@ void mapDist(int PING_pin_left){
   Serial.println(dist);
 }
 
+/*
+    Prints all blocks in the buffer.
+*/
 void print_blocks(uint16_t blocks, char buf[32]) {
-    
-    //Serial.print(buf);
-
     for (int j=0; j<blocks; j++)
     {
-      sprintf(buf, "  block %d: ", j);
-      //Serial.print(buf); 
+      sprintf(buf, "  block %d: ", j); 
       pixy.blocks[j].print();
     }
   
 }
 
+
+/*
+    Once it has reached its desired distance stop the motors.
+*/
 void stop_wheels() {
   delay(100);
   digitalWrite(left_wheel, HIGH);
